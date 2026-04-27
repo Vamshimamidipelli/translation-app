@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+/* ─── Design Tokens ─────────────────────────────────────────── */
+@theme {
+  --font-sans: "Poppins", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ─── Dark Mode (default) ───────────────────────────────────── */
+:root,
+html.dark {
+  --bg:               #0F172A;
+  --bg-surface:       #020617;
+  --bg-glass:         rgba(15, 23, 42, 0.4);
+  --border-glass:     rgba(255, 255, 255, 0.08);
+  --text-primary:     #E2E8F0;
+  --text-muted:       #94A3B8;
+  --text-placeholder: #475569;
+  --color-primary:    #8b5cf6;
+  --color-primary-c:  #7c3aed;
+  --color-secondary:  #06b6d4;
+  --color-secondary-c:#0891b2;
+  --color-tertiary:   #ec4899;
+  --color-tertiary-c: #db2777;
+  --nav-bg:           rgba(15,23,42,0.85);
+  --panel-bg:         rgba(2,6,23,0.5);
+  --input-bg:         rgba(255,255,255,0.03);
+  --dropdown-bg:      #0F172A;
+  --dropdown-border:  rgba(255,255,255,0.1);
+  --dropdown-hover:   rgba(255,255,255,0.05);
+  --history-bg:       #020617;
+  --scrollbar-thumb:  #334155;
+  --shadow-card:      0 0 40px rgba(139,92,246,0.1);
+}
+
+/* ─── Light Mode ────────────────────────────────────────────── */
+html.light {
+  --bg:               #F8FAFC;
+  --bg-surface:       #F1F5F9;
+  --bg-glass:         rgba(255, 255, 255, 0.7);
+  --border-glass:     rgba(148, 163, 184, 0.2);
+  --text-primary:     #1E293B;
+  --text-muted:       #475569;
+  --text-placeholder: #94A3B8;
+  --color-primary:    #7c3aed;
+  --color-primary-c:  #6d28d9;
+  --color-secondary:  #0284c7;
+  --color-secondary-c:#0369a1;
+  --color-tertiary:   #db2777;
+  --color-tertiary-c: #be185d;
+  --nav-bg:           rgba(248,250,252,0.90);
+  --panel-bg:         rgba(255,255,255,0.9);
+  --input-bg:         #F1F5F9;
+  --dropdown-bg:      #ffffff;
+  --dropdown-border:  rgba(148,163,184,0.2);
+  --dropdown-hover:   rgba(241,245,249,0.8);
+  --history-bg:       #F1F5F9;
+  --scrollbar-thumb:  #cbd5e1;
+  --shadow-card:      0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* ─── Base ──────────────────────────────────────────────────── */
+@layer base {
+  html { scroll-behavior: smooth; }
+
+  button {
+    cursor: pointer;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    letter-spacing: 0.015em;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  }
+
+  ::selection {
+    background-color: var(--color-primary-c);
+    color: #fff;
+    opacity: 0.3;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 999px;
+  }
+}
+
+/* ─── Components ────────────────────────────────────────────── */
+@layer components {
+
+  .glass-panel {
+    background-color: var(--bg-glass);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid var(--border-glass);
+    box-shadow: var(--shadow-card);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .glow-border-primary {
+    border: 1px solid transparent;
+    background:
+      linear-gradient(var(--bg-surface), var(--bg-surface)) padding-box,
+      linear-gradient(to bottom right, var(--color-primary-c), var(--color-secondary-c)) border-box;
+    box-shadow: var(--shadow-card);
+    transition: all 0.3s ease-in-out;
+  }
+  html.light .glow-border-primary {
+    border: 1px solid var(--border-glass);
+    background: var(--bg-surface);
+  }
+
+  .hyper-aura-btn {
+    background: linear-gradient(135deg, var(--color-primary-c), var(--color-tertiary-c));
+    box-shadow: 0 0 20px rgba(139,92,246,0.4);
+    transition: all 0.3s ease-in-out;
+    color: white;
+  }
+  html.light .hyper-aura-btn {
+    box-shadow: 0 4px 15px rgba(109,40,217,0.25);
+  }
+  .hyper-aura-btn:hover {
+    box-shadow: 0 0 30px rgba(139,92,246,0.6);
+    transform: translateY(-2px);
+  }
+  html.light .hyper-aura-btn:hover {
+    box-shadow: 0 6px 20px rgba(109,40,217,0.35);
+  }
+  .hyper-aura-btn:active { transform: translateY(0); }
+
+  .particle-bg {
+    background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.03) 1px, transparent 0);
+    background-size: 40px 40px;
+    transition: background-image 0.3s ease-in-out;
+  }
+  html.light .particle-bg {
+    background-image: radial-gradient(circle at 2px 2px, rgba(30,41,59,0.04) 1px, transparent 0);
+  }
+
+  /* ── Language Dropdown ── */
+  .lang-dropdown {
+    background-color: var(--dropdown-bg);
+    border: 1px solid var(--dropdown-border);
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    transition: all 0.3s ease-in-out;
+  }
+  .lang-option {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    font-size: 0.875rem;
+    color: var(--text-primary);
+  }
+  .lang-option:hover { background-color: var(--dropdown-hover); }
+  .lang-option.selected { color: var(--color-primary-c); font-weight: 600; }
+
+  /* ── History Panel ── */
+  .history-panel {
+    background-color: var(--history-bg);
+    border-left: 1px solid var(--border-glass);
+    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+  }
+
+  /* ── Textarea ── */
+  textarea {
+    caret-color: var(--color-primary-c);
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  }
+  textarea::placeholder { color: var(--text-placeholder); }
+}
